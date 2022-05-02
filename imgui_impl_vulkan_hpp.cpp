@@ -1251,7 +1251,7 @@ void ImGui_ImplVulkanH_CreateWindowSwapChain(vk::PhysicalDevice physical_device,
         info.imageFormat = wd->SurfaceFormat.format;
         info.imageColorSpace = wd->SurfaceFormat.colorSpace;
         info.imageArrayLayers = 1;
-        info.imageUsage = vk::ImageUsageFlagBits::eColorAttachment;
+        info.imageUsage = vk::ImageUsageFlagBits::eColorAttachment | vk::ImageUsageFlagBits::eTransferDst;
         info.imageSharingMode = vk::SharingMode::eExclusive;           // Assume that graphics family == present family
         info.preTransform = vk::SurfaceTransformFlagBitsKHR::eIdentity;
         info.compositeAlpha = vk::CompositeAlphaFlagBitsKHR::eOpaque;
@@ -1292,7 +1292,8 @@ void ImGui_ImplVulkanH_CreateWindowSwapChain(vk::PhysicalDevice physical_device,
         vk::AttachmentDescription attachment = {};
         attachment.format = wd->SurfaceFormat.format;
         attachment.samples = vk::SampleCountFlagBits::e1;
-        attachment.loadOp = wd->ClearEnable ? vk::AttachmentLoadOp::eClear : vk::AttachmentLoadOp::eDontCare;
+        //attachment.loadOp = wd->ClearEnable ? vk::AttachmentLoadOp::eClear : vk::AttachmentLoadOp::eDontCare;
+        attachment.loadOp = vk::AttachmentLoadOp::eDontCare;
         attachment.storeOp = vk::AttachmentStoreOp::eStore;
         attachment.stencilLoadOp = vk::AttachmentLoadOp::eDontCare;
         attachment.stencilStoreOp = vk::AttachmentStoreOp::eDontCare;

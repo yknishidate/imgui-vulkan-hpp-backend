@@ -1526,7 +1526,7 @@ static void ImGui_ImplVulkan_RenderWindow(ImGuiViewport* viewport, void*)
     ImGui_ImplVulkanH_FrameSemaphores* fsd = &wd->FrameSemaphores[wd->SemaphoreIndex];
     {
         {
-            wd->FrameIndex = v->Device.acquireNextImageKHR(wd->Swapchain, UINT64_MAX, fsd->ImageAcquiredSemaphore, nullptr);
+            wd->FrameIndex = v->Device.acquireNextImageKHR(wd->Swapchain, UINT64_MAX, fsd->ImageAcquiredSemaphore, nullptr).value;
             fd = &wd->Frames[wd->FrameIndex];
         }
         for (;;) {
